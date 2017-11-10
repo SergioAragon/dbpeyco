@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 29-10-2017 a las 19:55:56
+-- Tiempo de generación: 10-11-2017 a las 00:51:07
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `dbfinalpeyco`
+-- Base de datos: `dbpeyco`
 --
 
 -- --------------------------------------------------------
@@ -60,45 +60,6 @@ INSERT INTO `clasificacion` (`id_clasifi`, `descripcion`) VALUES
 (1, 'sillas'),
 (2, 'mesas'),
 (3, 'muebles');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `clientes`
---
-
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombres` varchar(20) NOT NULL,
-  `apellidos` varchar(20) NOT NULL,
-  `cedula` int(11) DEFAULT NULL,
-  `telefono` int(11) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `password_hash` varchar(60) NOT NULL,
-  `auth_key` varchar(32) NOT NULL,
-  `access_token` varchar(250) DEFAULT NULL,
-  `activate` int(11) NOT NULL DEFAULT '1',
-  `status` int(11) DEFAULT '10',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `role` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `nombres`, `apellidos`, `cedula`, `telefono`, `username`, `email`, `password_hash`, `auth_key`, `access_token`, `activate`, `status`, `created_at`, `updated_at`, `role`) VALUES
-(10, 'Lola', 'Lopez', NULL, 8775869, 'lola', 'lola@yahoo.com', '$2y$13$WNrtvOTibzH4a3CC.yxLSOwrEXz3emcGu6OZUwvtmC838CFzX54Ai', 'T52xQEIP-wnSFPHlH-yLqAaS47pYNvEt', NULL, 1, 10, '2017-10-22 07:16:24', '2017-10-22 07:16:24', 1),
-(11, 'Admin', 'Administrador', NULL, 444, 'admin', 'admin@yahoo.com', '$2y$13$WXuAXZl0ADdat4LBrjremOEQHvY2x/0jX7.oGHw.HS0/LhRaIRuyW', 'OAOHMbZXfkfo3e2t9YMs_EFHL6LZAvwQ', NULL, 1, 10, '2017-10-22 08:39:04', '2017-10-22 08:39:04', 2),
-(12, 'Juan Jose', 'Torres', NULL, 6748, 'juan', 'juan@yahoo.com', '$2y$13$I2Z0bIlixNOWEC7GOS0ddeGCxfVTTu6S5PUnIGEaDlArTmXciqBSO', 'OnSlzY5KK72IwiahrOdXQYKOrM6xLove', NULL, 1, 10, '2017-10-22 10:39:50', '2017-10-22 10:39:50', 1),
-(13, 'Carlos', 'Fuentes', NULL, 9089, 'carlos', 'carlos@yahoo.com', '$2y$13$r.gw2kuKp8hesh4Pb1tsWOXXNtG6ON6lKpaKrg6rCVyippF/LHNEW', 'xujd8eo3fBSg9O4AIUDcfC5tGv-WPca9', NULL, 1, 10, '2017-10-22 12:13:30', '2017-10-22 12:13:30', 1),
-(14, 'Tata', 'Grass', NULL, 36578, 'tata', 'tata@yahoo.com', '$2y$13$RaEl5KX66nkge9V2C6WhfepXtj2mW0eS7qRYWmhHumH.Ax93pI8nq', 'lgUqHcj2v-c1V1FaYjKgvsqIsNIxTm9E', NULL, 1, 10, '2017-10-22 15:37:39', '2017-10-22 15:37:39', 1),
-(15, 'Juaquin', 'Jaramillo', NULL, 678900, 'juaco', 'juaco@yahoo.com', '$2y$13$kwCLZCz/CNDT2tUPr.07gufvc.aTks1zvVTDi.9CoBwY/36HLw6T6', 'lpFwxMriToOYy9e6bjmIc4kYKDEQHlxG', NULL, 1, 10, '2017-10-22 21:06:03', '2017-10-22 21:06:03', 1),
-(16, 'Manuel', 'Martinez', NULL, 78790, 'manu', 'manu@yahoo.com', '$2y$13$tgv8HBxaltCrig4IHSHHse8oLjOh05HpUhqaQFsBimRTgR/qxS4Qq', 'V3RsSWEO3WwiXANUDx_qvD-Yak2xYML9', NULL, 1, 10, '2017-10-25 23:58:17', '2017-10-25 23:58:17', 1);
 
 -- --------------------------------------------------------
 
@@ -235,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `detalle_producto_color` (
   KEY `fk_dpc_color` (`color_id`),
   KEY `fk_dpc_producto` (`producto_id`),
   KEY `estado_id` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `detalle_producto_color`
@@ -257,7 +218,11 @@ INSERT INTO `detalle_producto_color` (`id_dpc`, `producto_id`, `color_id`, `cant
 (39, 10, 2, 4, 1),
 (40, 26, 1, 16, 2),
 (41, 26, 4, 16, 2),
-(42, 27, 3, 4, 1);
+(42, 27, 3, 4, 1),
+(43, 109, 1, 6, 1),
+(44, 109, 2, 6, 1),
+(45, 108, 2, 6, 1),
+(46, 108, 4, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -275,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `detalle_producto_material` (
   KEY `fk_dpm_mateId` (`materiales_id`),
   KEY `fk_detalle_producto_material_producto1_idx` (`producto_id_producto`),
   KEY `estado_id` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `detalle_producto_material`
@@ -290,7 +255,9 @@ INSERT INTO `detalle_producto_material` (`id_dpm`, `materiales_id`, `producto_id
 (18, 2, 25, 2),
 (19, 2, 10, 1),
 (20, 2, 26, 2),
-(21, 1, 27, 1);
+(21, 1, 27, 1),
+(22, 1, 109, 1),
+(23, 2, 108, 1);
 
 -- --------------------------------------------------------
 
@@ -503,11 +470,13 @@ INSERT INTO `producto` (`id_producto`, `nombre`, `cod_clasifi`, `dimension_produ
 (10, 'Logo', 2, '4x4', 'logo.jpg', 4, '400000', 1, NULL, 4, 2),
 (21, 'SillaLight', 1, '4567', 'silla2.jpg', 8, '34000', 1, NULL, 6, 2),
 (22, 'Silla Giratoria', 1, '3547', 'silla3.jpg', 32, '26000', 1, NULL, 14, 2),
-(23, 'Sillon', 3, '4567', 'mueble.jpg', 8, '345000', 2, NULL, 4, 1),
+(23, 'Sillon', 3, '4567', 'mueble.jpg', 8, '345000', 1, NULL, 4, 1),
 (24, 'Mueble Par', 3, '3456', 'mueble2.jpg', 32, '45000', 1, NULL, 14, 2),
 (25, 'Torre', 2, '5678', 'torre.jpg', 32, '56000', 2, NULL, 9, 2),
 (26, 'Mesa Light', 2, '3575', 'mesa.jpg', 24, '45000', 2, NULL, 16, 2),
 (27, 'Silla Roja', 1, '4567', 'sillaRoja.jpg', 12, '26000', 1, NULL, 4, 1),
+(108, 'Silla Roman', 1, '675', 'sillaFlex.jpg', 8, '12000', 1, NULL, 6, 2),
+(109, 'Silla Madera', 1, '564365', 'sillaMadera.jpg', 9, '50000', 1, NULL, 6, 1),
 (112, 'SillaP&C', 1, '76', 'silla.jpg', 5, '30000', 1, NULL, 4, 2);
 
 -- --------------------------------------------------------
@@ -524,32 +493,30 @@ CREATE TABLE IF NOT EXISTS `user` (
   `telefono` int(11) NOT NULL,
   `username` varchar(20) CHARACTER SET latin1 NOT NULL,
   `email` varchar(30) CHARACTER SET latin1 NOT NULL,
-  `password_hash` varchar(60) CHARACTER SET latin1 NOT NULL,
-  `auth_key` varchar(32) CHARACTER SET latin1 NOT NULL,
-  `access_token` varchar(250) CHARACTER SET latin1 DEFAULT NULL,
+  `password` varchar(60) CHARACTER SET latin1 NOT NULL,
+  `authKey` varchar(32) CHARACTER SET latin1 NOT NULL,
+  `password_reset_token` varchar(250) CHARACTER SET latin1 DEFAULT NULL,
   `activate` int(11) NOT NULL DEFAULT '1',
   `status` int(11) DEFAULT '10',
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `role` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `nombres`, `apellidos`, `telefono`, `username`, `email`, `password_hash`, `auth_key`, `access_token`, `activate`, `status`, `created_at`, `updated_at`, `role`) VALUES
-(6, 'Maria', 'Mora', 7869, 'nana', 'nana@yahoo.com', '$2y$13$BsYHX8UrSsLXYbZ/PLuI..WH6rDX.UcE85JsKOt9//x1MIg5mL6pi', 'x38BWyULGpnDPzShrsPX0FVy-MckAUJc', NULL, 1, 10, '2017-10-21 22:50:30', '2017-10-21 22:50:30', 1),
+INSERT INTO `user` (`id`, `nombres`, `apellidos`, `telefono`, `username`, `email`, `password`, `authKey`, `password_reset_token`, `activate`, `status`, `created_at`, `updated_at`, `role`) VALUES
 (7, 'Andres', 'Arboleda', 4567, 'andres', 'andres@yahoo.com', '$2y$13$5CCNUBw4BhmZ354ZMHuxceSVUoZRxyNJb6gcfR98PIE7Qvm2Nte02', 'zW1X54fnzXRHrQPn2XiIuMD8_nGFRBnf', NULL, 1, 10, '2017-10-21 23:00:56', '2017-10-21 23:00:56', 2),
 (8, 'Admin', 'Administrador', 64367, 'admin', 'admin@admin.com', '$2y$13$9Cr8Ozub3G82STggEyecDeLediqOdLxnGrICJLG/hrJaajJd9Hixm', '3lqBUDijmMpa4EhhIfdzLeVpMyDLNI17', NULL, 1, 10, '2017-10-22 00:10:30', '2017-10-22 00:10:30', 2),
-(9, 'Clara', 'Gomez', 6789, 'clara', 'clara@yahoo.com', '$2y$13$MK/ZyeXlCPEYocD4JmFp.u6K0Ct/hcW6Ri9DL5.gLgLbNnM7cRbRi', 'BjozpWqqVzkwLtqbNwjVOehmjJ4uOSrp', NULL, 1, 10, '2017-10-22 20:19:33', '2017-10-22 20:19:33', 1),
+(9, 'Clara', 'Gomez', 301236789, 'clara', 'clara@hormail.com', '$2y$13$MK/ZyeXlCPEYocD4JmFp.u6K0Ct/hcW6Ri9DL5.gLgLbNnM7cRbRi', 'BjozpWqqVzkwLtqbNwjVOehmjJ4uOSrp', NULL, 1, 10, '2017-10-22 20:19:33', '2017-10-22 20:19:33', 1),
 (10, 'Francy', 'Parra', 3456768, 'francy', 'francy@yahoo.com', '$2y$13$qgReBL7LvB29MG8J/fhjY.LBKLzMZgyPSCAGIsXpNBzsQhkKxBaRW', 'qiNX8xVec9GHKRxZ7qh06DZh_G8wjTG6', NULL, 1, 10, '2017-10-23 00:33:01', '2017-10-23 00:33:01', 1),
-(11, 'Rosa', 'Ramirez', 465789, 'rosa', 'rosa@yahoo.com', '$2y$13$tftkMn05DefqFJkjszj6UuRr.pF7XvY/CAhbP0VibZOC2Z8Lf9CFW', '7RC4VOzR6rPUZTjZ99l8_jn8srdgwBOw', NULL, 1, 10, '2017-10-23 13:21:31', '2017-10-23 13:21:31', 1),
-(12, 'Dora', 'Fruta', 5678, 'dora', 'dora@yahoo.com', '$2y$13$cyhmRXPVvG1Qt1Mz7XuUquou5wV.EvmHsTZ9qe35NxWlHAvojvzqe', 'Eeu0T7NASLFH_Bb0TsOkEpgN0LpXJGNK', NULL, 1, 10, '2017-10-25 01:08:50', '2017-10-25 01:08:50', 1),
 (13, 'Koko', 'Korn', 45678, 'koko', 'koko@yahoo.com', '$2y$13$ziFlvlQJHur7jZaPkkgZKOyQvp.0iWOiTB3A7J8aO/fPr91sCjAi6', '1n3CXEZSkg_UYlfRYerxwMaadiftGew6', NULL, 1, 10, '2017-10-27 01:54:55', '2017-10-27 01:54:55', 1),
-(14, 'Sofia', 'Moreno', 657879809, 'sofi', 'sofi@yahoo.c', '$2y$13$LZTwDHNd4PP7SKOJSsTCF.wnJYxCOGvTVVg/wJclddFoCz.a49/1a', '0hje_m1x9lF_sdfksYXF4BgZeDTVlG8h', NULL, 1, 10, '2017-10-27 06:22:50', '2017-10-27 06:22:50', 1),
-(15, 'Pedro', 'Garcia', 53478, 'pepe', 'pepe@yahoo.com', '$2y$13$jxBDqCdJGWZ2ojerC6WYkeIaHmKOHRF258bx62B713JGaVwCP3JsG', 'PhLwQ8KWHl9nW7jF6vjPxWNY8Pb1J0GY', NULL, 1, 10, '2017-10-27 19:24:22', '2017-10-27 19:24:22', 1);
+(14, 'Sofia', 'Morenota', 2147483600, 'sofi', 'sofi@hotmail.com', '$2y$13$LZTwDHNd4PP7SKOJSsTCF.wnJYxCOGvTVVg/wJclddFoCz.a49/1a', '0hje_m1x9lF_sdfksYXF4BgZeDTVlG8h', NULL, 1, 10, '2017-10-27 06:22:50', '2017-10-27 06:22:50', 1),
+(15, 'Pedro', 'Garcia', 53478, 'pepa', 'pepe@yahoo.com', 'pepa123', 'PhLwQ8KWHl9nW7jF6vjPxWNY8Pb1J0GY', NULL, 1, 10, '2017-10-27 19:24:22', '2017-10-27 19:24:22', 1),
+(46, 'Dora', 'Fuentes', 43345648, 'dora', 'rosaameliarestrepo@gmail.com', '$2y$13$IbAyY8/ddcrGEmjrUihn3.f3I3j3ytb2IK4Uw5ohk/acvASK5PowG', 'wO8DfuyxtpMf_MC7rO5MJXo2R5VVcP_T', NULL, 1, 10, '2017-11-09 06:17:05', '2017-11-09 06:21:18', 1);
 
 --
 -- Restricciones para tablas volcadas
