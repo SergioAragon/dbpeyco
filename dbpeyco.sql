@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-11-2017 a las 17:32:55
+-- Tiempo de generación: 27-11-2017 a las 16:16:53
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -328,6 +328,21 @@ CREATE TABLE IF NOT EXISTS `estado` (
 INSERT INTO `estado` (`id_estado`, `descripcion`) VALUES
 (1, 'activo'),
 (2, 'inactivo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `created_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
