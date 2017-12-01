@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 30-11-2017 a las 00:02:15
+-- Tiempo de generación: 01-12-2017 a las 21:47:36
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -47,46 +47,24 @@ CREATE TABLE IF NOT EXISTS `agenda` (
 
 DROP TABLE IF EXISTS `clasificacion`;
 CREATE TABLE IF NOT EXISTS `clasificacion` (
-  `id_clasifi` int(11) NOT NULL,
+  `id_clasifi` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(20) NOT NULL,
-  `Parent_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
   PRIMARY KEY (`id_clasifi`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clasificacion`
 --
 
-INSERT INTO `clasificacion` (`id_clasifi`, `descripcion`, `Parent_id`) VALUES
+INSERT INTO `clasificacion` (`id_clasifi`, `descripcion`, `parent_id`) VALUES
 (1, 'sillas', 0),
 (2, 'mesas', 0),
 (3, 'muebles', 0),
-(4, 'sofas', 3),
-(5, 'mesas redonda ', 2),
-(7, 'sillas plasticas', 1),
-(9, 'sillas maderas', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `clasificacioness`
---
-
-DROP TABLE IF EXISTS `clasificacioness`;
-CREATE TABLE IF NOT EXISTS `clasificacioness` (
-  `id_clasifi` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_clasifi`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `clasificacioness`
---
-
-INSERT INTO `clasificacioness` (`id_clasifi`, `descripcion`) VALUES
-(1, 'sillas'),
-(2, 'mesas'),
-(3, 'muebles');
+(4, 'silla plastica ', 1),
+(5, 'silla madera ', 1),
+(6, 'mueble cubo', 3),
+(7, 'puff', 3);
 
 -- --------------------------------------------------------
 
@@ -223,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `detalle_producto_color` (
   KEY `fk_dpc_color` (`color_id`),
   KEY `fk_dpc_producto` (`producto_id`),
   KEY `estado_id` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `detalle_producto_color`
@@ -238,7 +216,23 @@ INSERT INTO `detalle_producto_color` (`id_dpc`, `producto_id`, `color_id`, `cant
 (6, 23, 1, 1, 1),
 (7, 23, 2, 1, 1),
 (8, 24, 1, 1, 1),
-(9, 25, 3, 1, 1);
+(9, 25, 3, 1, 1),
+(10, 8, 1, 3, 1),
+(11, 8, 3, 3, 1),
+(12, 1, 2, 4, 1),
+(13, 1, 3, 4, 1),
+(14, 2, 1, 5, 1),
+(15, 2, 3, 5, 1),
+(16, 32, 2, 12, 1),
+(17, 32, 3, 12, 1),
+(18, 12, 1, 20, 1),
+(19, 12, 2, 20, 1),
+(20, 5, 1, 2, 1),
+(21, 6, 1, 2, 1),
+(22, 7, 2, 5, 1),
+(23, 10, 1, 5, 1),
+(24, 10, 2, 5, 1),
+(25, 10, 3, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -256,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `detalle_producto_material` (
   KEY `fk_dpm_mateId` (`materiales_id`),
   KEY `fk_detalle_producto_material_producto1_idx` (`producto_id_producto`),
   KEY `estado_id` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `detalle_producto_material`
@@ -268,7 +262,16 @@ INSERT INTO `detalle_producto_material` (`id_dpm`, `materiales_id`, `producto_id
 (3, 5, 22, 1),
 (4, 2, 23, 1),
 (5, 1, 24, 1),
-(6, 1, 25, 1);
+(6, 1, 25, 1),
+(7, 5, 8, 1),
+(8, 3, 1, 1),
+(9, 5, 2, 1),
+(10, 5, 32, 1),
+(11, 4, 12, 1),
+(12, 3, 5, 1),
+(13, 3, 6, 1),
+(14, 1, 7, 1),
+(15, 1, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -363,10 +366,6 @@ CREATE TABLE IF NOT EXISTS `event` (
 INSERT INTO `event` (`id`, `title`, `description`, `created_date`) VALUES
 (8, 'prueba2', 'segundo intento', '2029-11-17'),
 (9, 'prueba3', 'tercer intento', '2017-11-29'),
-(10, 'prueba4', 'intento 4', '2017-11-30'),
-(11, 'prueba5', 'intento 5', '2017-12-02'),
-(12, 'prueba6', 'intento 6', '2017-12-01'),
-(13, 'prueba7', 'intento 7', '2017-12-01'),
 (14, 'prueba8', 'intento 8', '2017-12-02'),
 (15, 'prueba9', 'intento 9', '2017-11-30'),
 (16, 'prueba10', 'intento 10', '2017-11-29');
@@ -483,18 +482,25 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `telefono` int(11) NOT NULL,
   `municipio_id` int(11) DEFAULT '1',
   `estado_id` int(11) DEFAULT '1',
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
   KEY `estado_id` (`estado_id`),
   KEY `municipio_id` (`municipio_id`),
   KEY `cliente_id` (`cliente_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`id_pedido`, `cliente_id`, `nombre_expo`, `nombre_empresa`, `frente`, `fondo`, `Referencia_stand`, `cantidad_stand`, `direccion`, `fecha_pedido`, `telefono`, `municipio_id`, `estado_id`) VALUES
-(1, 9, 'moli', 'france', 250, 38, 'letras', 34, 'Cr. 81 # 49', '2017-10-29 00:00:00', 3455426, 4, 1);
+INSERT INTO `pedido` (`id_pedido`, `cliente_id`, `nombre_expo`, `nombre_empresa`, `frente`, `fondo`, `Referencia_stand`, `cantidad_stand`, `direccion`, `fecha_pedido`, `telefono`, `municipio_id`, `estado_id`, `updated_at`) VALUES
+(1, 9, 'moli', 'france', 250, 38, 'letras', 34, 'Cr. 81 # 49', '2017-10-29 00:00:00', 3455426, 4, 1, NULL),
+(2, 81, 'molinos', 'togas', 100, 150, 'premium', 3, 'Cr. 81 # 49', '2017-11-30 00:00:00', 463574, 4, 2, '2017-11-30 08:41:33'),
+(3, 80, 'dell', 'finca', 340, 250, 'swit', 5, 'Cr. 81 # 50', '2017-11-29 20:15:10', 4635741, 3, 1, '2017-11-30 08:42:00'),
+(4, 81, 'Palace', 'Quinta', 235, 246, 'Small', 3, 'Cr. 61 # 90', '2017-11-29 20:30:23', 576748, 2, 1, '2017-11-29 20:30:23'),
+(5, 81, 'cross', 'tales', 668, 390, 'long', 4, 'cll 62 # 45', '2017-11-29 22:08:36', 235526, 4, 1, '2017-11-29 22:08:36'),
+(6, 83, 'mil', 'tropp', 350, 230, 'Tall', 3, 'Cr. 61 # 90', '2017-11-30 01:26:53', 32556, 3, 1, '2017-11-30 01:26:53'),
+(7, 85, 'Moli', 'Cruz', 570, 455, 'Small', 4, 'Cr. 81 # 49', '2017-11-30 08:40:21', 235526, 3, 1, '2017-11-30 08:40:21');
 
 -- --------------------------------------------------------
 
@@ -527,17 +533,14 @@ CREATE TABLE IF NOT EXISTS `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre`, `cod_clasifi`, `dimension_producto`, `imag_adju`, `unidades`, `costo`, `estado_id`, `color_id`, `cantidad_color`, `materiales_id`) VALUES
-(14, 'SillaSligth', 1, '45 x 76', 'silla.jpg', 6, '22000', 1, NULL, 5, 7),
-(15, 'SillaTall', 1, '54x45x60', 'silla4.jpg', 0, '20000', 1, NULL, 6, 7),
-(16, 'Logo', 3, '40x80x120', 'logo.jpg', 5, '450000', 2, NULL, 5, 4),
-(17, 'prueba', 3, '120 x 140', 'tiger.jpg', 10, '1000000', 1, NULL, 10, 3),
-(18, 'prua', 1, '120 x 140', 'surf.jpg', 1, '100000', 2, NULL, 12, 2),
-(19, 'SillaRoja', 1, '40x80x120', 'sillaRoja.jpg', 6, '22000', 2, NULL, 7, 3),
-(21, 'SillaMadera', 1, '40x80x120', 'sillaMadera.jpg', 6, '26000', 1, NULL, 5, 1),
-(22, 'prueba', 1, '123', 'desk.jpg', 1, '20000', 1, NULL, 1, 5),
-(23, 'pruebaa', 1, '12', 'mueble.jpg', 2, '20000', 1, NULL, 1, 2),
-(24, 'pruebaaa', 3, '12', 'silla3.jpg', 1, '20000', 1, NULL, 1, 1),
-(25, 'pruebaaaa', 1, '120', 'silla.jpg', 1, '20000', 1, NULL, 1, 1);
+(1, 'silla', 4, '120 x 140', 'silla.jpg', 1, '20000', 1, NULL, 4, 3),
+(2, 'mueble', 6, '23 x 326', 'silla.jpg', 12, '1000000', 1, NULL, 5, 5),
+(5, 'banco', 4, '120 x 140', 'silla2.jpg', 5, '20000', 1, NULL, 2, 3),
+(6, 'Sillapc', 1, '76', 'silla3.jpg', 5, '20000', 2, NULL, 2, 3),
+(7, 'SillaGiratoria', 4, '12', 'silla2.jpg', 5, '120000', 1, NULL, 5, 1),
+(10, 'SillaGiratoria', 4, '120 x 140', 'silla4.jpg', 1, '20000', 1, NULL, 5, 1),
+(12, 'mesa', 7, '32', 'silla4.jpg', 6, '200000', 1, NULL, 20, 4),
+(32, 'sa', 7, '12x1212', 'silla4.jpg', 12, '20000', 1, NULL, 12, 5);
 
 -- --------------------------------------------------------
 
@@ -562,7 +565,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_at` datetime DEFAULT NULL,
   `role` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -575,8 +578,11 @@ INSERT INTO `user` (`id`, `nombres`, `apellidos`, `telefono`, `username`, `email
 (78, 'Laura', 'Kiros', 4567865, 'laura', 'laura@yahoo.co.t.hum.cruz', '$2y$13$ypjbdNwOW.jNtOwnVOnEuOeu6aD45svmnHDUf1XAenlLX2zuyfKFK', 'uH7aMRowrqRimiBI9sBnst1H0ALsFGAq', NULL, 0, 10, '2017-11-23 21:51:46', '2017-11-23 21:51:46', 1),
 (79, 'Maria', 'Perez', 1234567, 'maria', 'maria@hotmail.com', '$2y$13$4IXwA8YsJS4fD4cByNGus.fUn2nM1Om6j4RRnjFHHPliOqkV2USO2', 'GDaaCr2KVs3wl4x5F1icWJ0B693DVnRp', NULL, 1, 10, '2017-11-23 22:00:52', '2017-11-23 22:00:52', 1),
 (80, 'Carlos', 'Jaramillo', 1234567, 'carlos', 'carlosjara@gmail.com', '$2y$13$dl2MWcBo/6xSKm5dftaVdewQcf7557.M1qxEsOdkfrnh83981RZL2', 'tgs-UxHaYmu7zFXnx9Lcl12ij-50r8Ny', NULL, 1, 10, '2017-11-23 22:21:39', '2017-11-23 22:21:39', 1),
-(81, 'Juaco', 'Borda', 1234567, 'juaco', 'juaco@gmail.com', '$2y$13$3APZiOjR/UEzE40j85r6c.BGK/1bYdurlzNZAHkBe70a9ctSapTCq', 'ka-9H_eo5E2pldxyA1nlemwTBH0Qmiot', 'gdjXQvmNhCd7xVqVRZ-75G0wjOalu0PR_1511929870', 1, 10, '2017-11-26 12:10:03', '2017-11-28 23:31:10', 1),
-(82, 'Lola', 'Lopez', 1234567, 'lola', 'rosaameliarestrepo@gmail.com', '$2y$13$MUUYvWLJ14lsJMIXGR/Nq.j3.0UWZz6XXZBZIoXluHABI7NI1Ly.6', '76ln9xuo9mgF5WoE3tVH2GoOyKJTgFkK', 'QTG9hhHJcDVbd08F61oF4l-GJw7K9kl7_1511936948', 1, 10, '2017-11-29 01:07:56', '2017-11-29 01:29:08', 1);
+(81, 'Juaquin', 'Borda', 1234567, 'juaco', 'juaquin@hotmail.com', '$2y$13$3APZiOjR/UEzE40j85r6c.BGK/1bYdurlzNZAHkBe70a9ctSapTCq', 'ka-9H_eo5E2pldxyA1nlemwTBH0Qmiot', 'gdjXQvmNhCd7xVqVRZ-75G0wjOalu0PR_1511929870', 1, 10, '2017-11-26 12:10:03', '2017-11-28 23:31:10', 1),
+(82, 'Lola', 'Lopez', 1234567, 'lola', 'lolita@gmail.com', '$2y$13$MUUYvWLJ14lsJMIXGR/Nq.j3.0UWZz6XXZBZIoXluHABI7NI1Ly.6', '76ln9xuo9mgF5WoE3tVH2GoOyKJTgFkK', 'E8thC7qKCh_ECM0km9iT-6B3AhvS7l29_1512021759', 1, 10, '2017-11-29 01:07:56', '2017-11-30 01:02:39', 1),
+(83, 'Paola', 'Puerta', 1234567, 'paola', 'rosaameliarestrepo@gmail.com', '$2y$13$4H2B.EFcn.FI23t2PUPP.Od.KBheckgnmJ7FfRE2u9fs.YSYwJtOm', 'Iwo_0F5TeBua9bJyKZfrU3aP36idUqoO', 'fz9aE0Hr37oB9BBgb2I5-E0pCoCE5efT_1512044483', 1, 10, '2017-11-30 01:25:14', '2017-11-30 07:21:23', 1),
+(84, 'Andres', 'torres', 1234567, 'Andrez', 'mrfelipe32@gmail.com', '$2y$13$ZqjGF3tdoyAJxJKMSJ2axOlFSKGWTYe6S3keYNEbukfoUbwyVgN1e', 'JQzTGA5umfz0WCT4y1PtHcUErfvnn6z_', NULL, 1, 10, '2017-11-30 08:13:51', '2017-11-30 08:13:51', 1),
+(85, 'juana', 'Perez', 2345678, 'juana', 'aragonenator@gmail.com', '$2y$13$s6t6js8zgx1ujPlPNxMrs.WIxmQArdYxPLR.yajdFim.SzCSPHnme', 'jfX3FlK63n_GG2-JzT8XmBHmzFpUh9x6', NULL, 1, 10, '2017-11-30 08:34:52', '2017-11-30 08:34:52', 1);
 
 --
 -- Restricciones para tablas volcadas
@@ -678,7 +684,7 @@ ALTER TABLE `pedido`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `fk_producto_clas` FOREIGN KEY (`cod_clasifi`) REFERENCES `clasificacioness` (`id_clasifi`),
+  ADD CONSTRAINT `fk_producto_clas` FOREIGN KEY (`cod_clasifi`) REFERENCES `clasificacion` (`id_clasifi`),
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`materiales_id`) REFERENCES `materiales` (`id_mate`),
   ADD CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`color_id`) REFERENCES `color` (`id_color`),
   ADD CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`id_estado`);
